@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>React</title>
+<!-- Загрузим React. -->
+<!-- Примечание: для деплоя на продакшен замените окончание «development.js» на «production.min.js». -->
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- Не использовать в продакшн. -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+class AppThree extends React.Component {
+  constructor() {
+    super();
+    this.state = {items: [1, 2, 3, 4, 5]};
+  }
+
+//удаляем первый элемент
+  deleteItem(index){
+    this.state.items.splice(index, 1);
+    this.setState({items: this.state.items});
+
+  }
+
+  render () {
+//формируем набор из тегов ли
+  const list = this.state.items.map ((item, index) => {
+    return <li key={index}>
+    {item}
+    <button onClick={this.deleteItem.bind(this, index)}>удалить</button>
+    </li>;
+  });
+//привязываем к кнопке метод deleteItem
+  return (
+    <div>
+    <ul>
+    {list}
+    </ul>
+    </div>
+    );
+  }
+}
+
+
+class AppTwo extends React.Component {
+  constructor() {
+    super();
+    this.state = {items: [1, 2, 3, 4, 5]};
+  }
+
+//удаляем первый элемент
+  deleteItem(num){
+    this.state.items.splice(num, 1);
+    this.setState({items: this.state.items});
+
+  }
+
+  render () {
+//формируем набор из тегов ли
+  const list = this.state.items.map ((item, index) => {
+    return <li key={index}>{item}</li>;
+  });
+//привязываем к кнопке метод deleteItem
+  return (
+    <div>
+    <ul>
+    {list}
+    </ul>
+    <button onClick={this.deleteItem.bind(this, 3)}>удалить</button>
+    </div>
+    );
+  }
+}
+
+
+class AppOne extends React.Component {
+  constructor() {
+    super();
+    this.state = {items: [1, 2, 3, 4, 5]};
+  }
+
+//удаляем первый элемент
+  deleteItem(){
+    this.setState({items: this.state.items.slice(1)});
+  }
+
+  render () {
+//формируем набор из тегов ли
+  const list = this.state.items.map ((item, index) => {
+    return <li key={index}>{item}</li>;
+  });
+//привязываем к кнопке метод deleteItem
+  return (
+    <div>
+    <ul>
+    {list}
+    </ul>
+    <button onClick={this.deleteItem.bind(this)}>удалить</button>
+    </div>
+    );
+  }
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {items: [1, 2, 3, 4, 5]};
+  }
+
+  addItem() {
+    this.state.items.push('пункт'); // тут изменяем стейт напрямую
+    this.setState({items: this.state.items}); // заствляем изменения примениться
+  }
+
+  render(){
+    //формируем набор из тегов ли
+    const list = this.state.items.map((item, index)=> {
+      return <li key={index}>{item}</li>;
+    });
+
+  return (
+    <div>
+      <ul>
+      {list}
+      </ul>
+      <button onClick = {this.addItem.bind(this)}>добавить</button>
+        <AppOne/>
+        <AppTwo/>
+        <AppThree/>
+    </div>
+  
+    );
+  }
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+  );
+
+</script>
+
+
+</body>
+</html>
